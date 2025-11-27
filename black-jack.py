@@ -43,6 +43,7 @@ def printMessage():
   print("莊家的牌：", end="")
   printCard(bankerCard)
   print("莊家的牌面點數：", sum(bankerPoint), sep="")
+  print("*************************")
   
 deckList = list(range(0, 52))
 random.shuffle(deckList)
@@ -57,3 +58,44 @@ for i in range(2):
 
 deal(bankerCard, bankerPoint)
 printMessage()
+
+while True:
+  ans = input("玩家要加牌嗎(Y/N)？")
+  if ans == "N" or ans == "n":
+    break
+
+  if ans != "Y" and ans != "y":
+    continue
+
+  deal(playerCard, playerPoint)
+  if sum(playerPoint) > 21:
+    if 11 in playerPoint:
+      playerPoint[playerPoint.index(11)] = 1
+      printMessage()
+    else:
+      printMessage()
+      print("玩家爆牌，莊家獲勝")
+      break
+  else:
+    printMessage()
+
+if sum(playerPoint) < 22:
+  #莊家小於17點時，持續加牌
+  while sum(bankerPoint) < 17:
+    print("----莊家加牌----")
+    deal(bankerCard, bankerPoint)
+
+    if sum(bankerPoint) > 21:
+      if 11 in bankerPoint:
+        bankerPoint[bankerPoint.index(11)] = 1
+    
+    printMessage()
+
+  if sum(bankerPoint) > 21:
+    print("莊家爆牌，玩家獲勝")   
+  elif sum(playerPoint) > sum(bankerPoint):
+    print("玩家勝利")
+  elif sum(playerPoint) < sum(bankerPoint):
+    print("莊家勝利")
+  elif sum(playerPoint) == sum(bankerPoint):
+    print("平局")
