@@ -60,6 +60,9 @@ deal(bankerCard, bankerPoint)
 printMessage()
 
 while True:
+  if len(playerCard) == 2 and sum(playerPoint) == 21:
+    print("Black Jack！")
+
   ans = input("玩家要加牌嗎(Y/N)？")
   if ans == "N" or ans == "n":
     break
