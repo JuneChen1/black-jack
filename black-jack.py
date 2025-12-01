@@ -44,61 +44,76 @@ def printMessage():
   printCard(bankerCard)
   print("莊家的牌面點數：", sum(bankerPoint), sep="")
   print("*************************")
-  
-deckList = list(range(0, 52))
-random.shuffle(deckList)
 
-playerCard = []
-playerPoint = []
-bankerCard = []
-bankerPoint = []
-
-for i in range(2):
-  deal(playerCard, playerPoint)
-
-deal(bankerCard, bankerPoint)
-printMessage()
+playerWin = 0
+bankerWin = 0
 
 while True:
-  if len(playerCard) == 2 and sum(playerPoint) == 21:
-    print("Black Jack！")
+  deckList = list(range(0, 52))
+  random.shuffle(deckList)
 
-  ans = input("玩家要加牌嗎(Y/N)？")
-  if ans == "N" or ans == "n":
-    break
+  playerCard = []
+  playerPoint = []
+  bankerCard = []
+  bankerPoint = []
 
-  if ans != "Y" and ans != "y":
-    continue
+  for i in range(2):
+    deal(playerCard, playerPoint)
 
-  deal(playerCard, playerPoint)
-  if sum(playerPoint) > 21:
-    if 11 in playerPoint:
-      playerPoint[playerPoint.index(11)] = 1
-      printMessage()
+  deal(bankerCard, bankerPoint)
+  printMessage()
+
+  while True:
+    if len(playerCard) == 2 and sum(playerPoint) == 21:
+      print("Black Jack！")
+
+    ans = input("玩家要加牌嗎(Y/N)？")
+    if ans == "N" or ans == "n":
+      break
+
+    if ans != "Y" and ans != "y":
+      continue
+
+    deal(playerCard, playerPoint)
+    if sum(playerPoint) > 21:
+      if 11 in playerPoint:
+        playerPoint[playerPoint.index(11)] = 1
+        printMessage()
+      else:
+        printMessage()
+        print("玩家爆牌，莊家獲勝")
+        bankerWin += 1
+        break
     else:
       printMessage()
-      print("玩家爆牌，莊家獲勝")
-      break
-  else:
-    printMessage()
 
-if sum(playerPoint) < 22:
-  #莊家小於17點時，持續加牌
-  while sum(bankerPoint) < 17:
-    print("----莊家加牌----")
-    deal(bankerCard, bankerPoint)
+  if sum(playerPoint) < 22:
+    #莊家小於17點時，持續加牌
+    while sum(bankerPoint) < 17:
+      print("----莊家加牌----")
+      deal(bankerCard, bankerPoint)
+
+      if sum(bankerPoint) > 21:
+        if 11 in bankerPoint:
+          bankerPoint[bankerPoint.index(11)] = 1
+      
+      printMessage()
 
     if sum(bankerPoint) > 21:
-      if 11 in bankerPoint:
-        bankerPoint[bankerPoint.index(11)] = 1
-    
-    printMessage()
+      print("莊家爆牌，玩家獲勝")
+      playerWin += 1   
+    elif sum(playerPoint) > sum(bankerPoint):
+      print("玩家勝利")
+      playerWin += 1  
+    elif sum(playerPoint) < sum(bankerPoint):
+      print("莊家勝利")
+      bankerWin += 1
+    elif sum(playerPoint) == sum(bankerPoint):
+      print("平局")
+  
+  print("玩家勝利{}次，莊家勝利{}次".format(playerWin, bankerWin))
 
-  if sum(bankerPoint) > 21:
-    print("莊家爆牌，玩家獲勝")   
-  elif sum(playerPoint) > sum(bankerPoint):
-    print("玩家勝利")
-  elif sum(playerPoint) < sum(bankerPoint):
-    print("莊家勝利")
-  elif sum(playerPoint) == sum(bankerPoint):
-    print("平局")
+  end = input("再來一場(Y/N)?")
+  if end == "n" or end == "N":
+    break
+  print()
