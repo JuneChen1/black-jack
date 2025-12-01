@@ -6,8 +6,10 @@
 + 如玩家未爆牌且停止要牌，換莊家加牌，莊家點數不足 17 點時，必須要牌
 + 如莊家點數大於 21 點，即為爆牌，此時玩家勝利
 + 雙方皆未爆牌的情況下，點數大者勝利
++ 可持續遊玩，並統計雙方勝利的次數
 
 <br>
 
 ### 執行範例
-<img width="315" height="702" alt="螢幕擷取畫面 2025-11-27 132115" src="https://github.com/user-attachments/assets/f47ebf52-e4d1-4a8c-8a5c-1d4b5bef7234" />
+<img width="328" height="1066" alt="螢幕擷取畫面 2025-12-01 175918" src="https://github.com/user-attachments/assets/8456b0d3-78d5-4938-a161-d1255024eabe" />
+
