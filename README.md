@@ -13,3 +13,7 @@
 ### 執行範例
 <img width="328" height="1066" alt="螢幕擷取畫面 2025-12-01 175918" src="https://github.com/user-attachments/assets/8456b0d3-78d5-4938-a161-d1255024eabe" />
 
+---
+
+### 撲克牌牌面說明
+[快速生成撲克牌堆](https://medium.com/@juneee/python-快速生成撲克牌堆-a87429a0abfd)
