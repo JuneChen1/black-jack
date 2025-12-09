@@ -13,6 +13,9 @@ def deal(cardList, pointList):
   temp = deckList.pop()
   cardList.append(temp)
   pointList.append(cardPoint(temp))
+  # A A
+  if pointList == [11, 11]:
+    pointList[1] = 1
 
 def printCard(c):
   for i in c:
@@ -65,7 +68,7 @@ while True:
 
   deckList = list(range(0, 52))
   random.shuffle(deckList)
-  
+
   playerCard = []
   playerPoint = []
   bankerCard = []
