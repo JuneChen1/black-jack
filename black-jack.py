@@ -47,8 +47,10 @@ def printMessage():
 
 playerWin = 0
 bankerWin = 0
+chips = int(input("請設定初始籌碼："))
 
 while True:
+  wager = int(input("請下注："))
   deckList = list(range(0, 52))
   random.shuffle(deckList)
 
@@ -62,7 +64,7 @@ while True:
 
   deal(bankerCard, bankerPoint)
   printMessage()
-
+  
   while True:
     if len(playerCard) == 2 and sum(playerPoint) == 21:
       print("Black Jack！")
@@ -82,7 +84,8 @@ while True:
       else:
         printMessage()
         print("玩家爆牌，莊家獲勝")
-        bankerWin += 1
+        chips -= wager
+        bankerWin += 1 
         break
     else:
       printMessage()
@@ -101,17 +104,21 @@ while True:
 
     if sum(bankerPoint) > 21:
       print("莊家爆牌，玩家獲勝")
-      playerWin += 1   
+      chips += wager
+      playerWin += 1 
     elif sum(playerPoint) > sum(bankerPoint):
       print("玩家勝利")
-      playerWin += 1  
+      chips += wager
+      playerWin += 1
     elif sum(playerPoint) < sum(bankerPoint):
       print("莊家勝利")
-      bankerWin += 1
+      chips -= wager
+      bankerWin += 1 
     elif sum(playerPoint) == sum(bankerPoint):
       print("平局")
   
   print("玩家勝利{}次，莊家勝利{}次".format(playerWin, bankerWin))
+  print("持有籌碼：", chips, sep="")
 
   end = input("再來一場(Y/N)?")
   if end == "n" or end == "N":
