@@ -49,6 +49,15 @@ def printMessage():
   print("莊家的牌面點數：", sum(bankerPoint), sep="")
   print("*************************")
 
+def winLose(winner, playerWin, bankerWin, chips):  
+  if winner == "player":
+    chips += wager     
+    playerWin += 1
+  elif winner == "banker":
+    chips -= wager
+    bankerWin += 1
+  return playerWin, bankerWin, chips
+
 playerWin = 0
 bankerWin = 0
 chips = input("請設定初始籌碼：")
@@ -83,8 +92,11 @@ while True:
   deal(bankerCard, bankerPoint)
   printMessage()
 
+  playerBJ = False
+  bankerBJ = False
   if len(playerCard) == 2 and sum(playerPoint) == 21:
       print("Black Jack！")
+      playerBJ = True
   
   print("請選擇步驟：加注輸入1/投降輸入2/跳過輸入3")
   ans = input()
@@ -101,8 +113,8 @@ while True:
     print("目前下注：", wager, sep="")
   elif ans == "2":
     print("已投降，收回一半籌碼")
-    chips -= math.ceil(wager/2)
-    bankerWin += 1
+    wager = math.ceil(wager/2)
+    playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     surrender = True
   elif ans != "3":
     print("請重新輸入")
@@ -124,39 +136,50 @@ while True:
       else:
         printMessage()
         print("玩家爆牌，莊家獲勝")
-        chips -= wager
-        bankerWin += 1 
+        playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
         break
     else:
       printMessage()
 
-  if surrender == False:
-    if sum(playerPoint) < 22:
-      #莊家小於17點時，持續加牌
-      while sum(bankerPoint) < 17:
-        print("----莊家加牌----")
-        deal(bankerCard, bankerPoint)
+  if surrender == False and sum(playerPoint) < 22:
+    #莊家小於17點時，持續加牌
+    while sum(bankerPoint) < 17:
+      print("----莊家加牌----")
+      deal(bankerCard, bankerPoint)
+      # 測試用
+      # bankerCard = [0, 11]
+      # bankerPoint = [11, 10]
 
-        if sum(bankerPoint) > 21:
-          if 11 in bankerPoint:
-            bankerPoint[bankerPoint.index(11)] = 1
-        
-        printMessage()
+      if sum(bankerPoint) > 21:
+        if 11 in bankerPoint:
+          bankerPoint[bankerPoint.index(11)] = 1
+      
+      printMessage()
+      
+    if len(bankerCard) == 2 and sum(bankerPoint) == 21:
+      bankerBJ = True
 
-    if sum(bankerPoint) > 21:
+    if bankerBJ == True and playerBJ == False:
+      print("莊家Black Jack，莊家勝利")
+      playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
+    elif bankerBJ == False and playerBJ == True:
+      print("玩家Black Jack，玩家勝利")
+      wager = math.floor(wager*1.5)
+      playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
+    elif bankerBJ == True and playerBJ == True:
+      print("雙方Black Jack，平局")
+
+    elif sum(bankerPoint) > 21:
       print("莊家爆牌，玩家獲勝")
-      chips += wager
-      playerWin += 1 
+      playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
     elif sum(playerPoint) > sum(bankerPoint):
-      print("玩家勝利")
-      chips += wager
-      playerWin += 1
+      print("玩家點數大於莊家，玩家勝利")
+      playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
     elif sum(playerPoint) < sum(bankerPoint):
-      print("莊家勝利")
-      chips -= wager
-      bankerWin += 1 
+      print("莊家點數大於玩家，莊家勝利")
+      playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     elif sum(playerPoint) == sum(bankerPoint):
-      print("平局")
+      print("雙方點數相同，平局")
     
   print("玩家勝利{}次，莊家勝利{}次".format(playerWin, bankerWin))
   print("持有籌碼：", chips, sep="")
