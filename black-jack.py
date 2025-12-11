@@ -183,8 +183,11 @@ while True:
     
   print("玩家勝利{}次，莊家勝利{}次".format(playerWin, bankerWin))
   print("持有籌碼：", chips, sep="")
-
+  
   end = input("再來一場(Y/N)?")
   if end == "n" or end == "N":
     break
+  while end != "y" and end != "Y":
+    end = input("再來一場(Y/N)?")
+  
   print("*************************")
