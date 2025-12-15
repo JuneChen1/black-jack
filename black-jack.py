@@ -150,7 +150,6 @@ while True:
     
     print("目前下注：", wager, sep="")
   elif ans == "2":
-    print("已投降，收回一半籌碼")
     wager = math.ceil(wager/2)
     playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     surrender = True
@@ -171,7 +170,7 @@ while True:
         playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
         break
 
-  else:
+  elif surrender == False:
     while True:
       ans = input("第一注要加牌嗎(Y/N)？")
       if ans == "N" or ans == "n":
@@ -203,8 +202,10 @@ while True:
         playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
         print("持有籌碼：", chips, sep="")
         break
-
-  if surrender != True or sum(playerPoint) < 22 or 0 < sum(playerCardSpilt) < 22:
+  
+  if surrender == True:
+    print("已投降，收回一半籌碼")
+  elif sum(playerPoint) < 22 or 0 < sum(playerCardSpilt) < 22:
     #莊家小於17點時，持續加牌
     while sum(bankerPoint) < 17:
       print("----莊家加牌----")
