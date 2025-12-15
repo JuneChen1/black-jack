@@ -236,9 +236,9 @@ while True:
       print("雙方Black Jack，平局")
 
     elif sum(bankerPoint) > 21 and firstBetEnd == False:
+      if len(playerCardSpilt) > 0:
+        print("第一注：")
       print("莊家爆牌，玩家獲勝")
-      if len(playerCardSpilt) > 0 and firstBetEnd == False and secondBetEnd == False:
-        wager = wager * 2
       playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
     elif sum(playerPoint) > sum(bankerPoint) and firstBetEnd == False:
       if len(playerCardSpilt) > 0:
@@ -257,7 +257,10 @@ while True:
     
     if len(playerCardSpilt) > 0 and secondBetEnd == False and bankerBJ == False:
       print("第二注：")
-      if sum(playerPointSpilt) > sum(bankerPoint):
+      if sum(bankerPoint) > 21 and firstBetEnd == False:
+        print("莊家爆牌，玩家獲勝")
+        playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
+      elif sum(playerPointSpilt) > sum(bankerPoint):
         print("玩家點數大於莊家，玩家勝利")
         playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
       elif sum(playerPointSpilt) < sum(bankerPoint):
