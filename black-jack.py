@@ -42,9 +42,9 @@ def deal(cardList, pointList):
 
 def split(cardList, pointList):
   card = cardList.pop()
-  point = pointList.pop()
+  pointList.pop()
   playerCardSpilt.append(card)
-  playerPointSpilt.append(point)
+  playerPointSpilt.append(11)
 
   deal(cardList, pointList)
   deal(playerCardSpilt, playerPointSpilt)
@@ -118,8 +118,8 @@ while True:
   for i in range(2):
     deal(playerCard, playerPoint)
   # 測試用
-  # playerCard = [0, 13]
-  # playerPoint = [11, 1]
+  # playerCard = [10, 11]
+  # playerPoint = [11, 10]
   
   deal(bankerCard, bankerPoint)
   printMessage()
@@ -223,10 +223,11 @@ while True:
     if len(bankerCard) == 2 and sum(bankerPoint) == 21:
       bankerBJ = True
 
-    if bankerBJ == True and playerBJ == False:
+    if len(playerCardSpilt) > 0 and firstBetEnd == False:
+      print("第一注：")
+
+    if bankerBJ == True and playerBJ == False and firstBetEnd == False:
       print("莊家Black Jack，莊家勝利")
-      if len(playerCardSpilt) > 0:
-        wager = wager * 2
       playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     elif bankerBJ == False and playerBJ == True:
       print("玩家Black Jack，玩家勝利")
@@ -236,28 +237,23 @@ while True:
       print("雙方Black Jack，平局")
 
     elif sum(bankerPoint) > 21 and firstBetEnd == False:
-      if len(playerCardSpilt) > 0:
-        print("第一注：")
       print("莊家爆牌，玩家獲勝")
       playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
     elif sum(playerPoint) > sum(bankerPoint) and firstBetEnd == False:
-      if len(playerCardSpilt) > 0:
-        print("第一注：")
       print("玩家點數大於莊家，玩家勝利")
       playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
     elif sum(playerPoint) < sum(bankerPoint) and firstBetEnd == False:
-      if len(playerCardSpilt) > 0:
-        print("第一注：")
       print("莊家點數大於玩家，莊家勝利")
       playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     elif sum(playerPoint) == sum(bankerPoint):
-      if len(playerCardSpilt) > 0 and firstBetEnd == False:
-        print("第一注：")
       print("雙方點數相同，平局")
     
-    if len(playerCardSpilt) > 0 and secondBetEnd == False and bankerBJ == False:
+    if len(playerCardSpilt) > 0 and secondBetEnd == False:
       print("第二注：")
-      if sum(bankerPoint) > 21 and firstBetEnd == False:
+      if bankerBJ == True:
+        print("莊家Black Jack，莊家勝利")
+        playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
+      elif sum(bankerPoint) > 21 and firstBetEnd == False:
         print("莊家爆牌，玩家獲勝")
         playerWin, bankerWin, chips = winLose("player", playerWin, bankerWin, chips)
       elif sum(playerPointSpilt) > sum(bankerPoint):
