@@ -117,10 +117,7 @@ while True:
 
   for i in range(2):
     deal(playerCard, playerPoint)
-  # 測試用
-  # playerCard = [10, 11]
-  # playerPoint = [11, 10]
-  
+    
   deal(bankerCard, bankerPoint)
   printMessage()
 
@@ -149,7 +146,7 @@ while True:
     wager += int(addWager)
     
     print("目前下注：", wager, sep="")
-  elif ans == "2":
+  elif ans == "2" and len(playerCardSpilt) == 0:
     wager = math.ceil(wager/2)
     playerWin, bankerWin, chips = winLose("banker", playerWin, bankerWin, chips)
     surrender = True
@@ -210,9 +207,6 @@ while True:
     while sum(bankerPoint) < 17:
       print("----莊家加牌----")
       deal(bankerCard, bankerPoint)
-      # 測試用
-      # bankerCard = [0, 11]
-      # bankerPoint = [11, 10]
 
       if sum(bankerPoint) > 21:
         if 11 in bankerPoint:
