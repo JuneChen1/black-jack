@@ -22,7 +22,8 @@
 <br>
 
 ### 執行範例
-<img width="699" height="1768" alt="螢幕擷取畫面 2025-12-15 180649" src="https://github.com/user-attachments/assets/c8bdfa12-3fd5-4426-a832-576e9c784395" />
+<img width="729" height="1710" alt="螢幕擷取畫面 2025-12-16 122718" src="https://github.com/user-attachments/assets/e558466d-9627-4dff-a94c-664d2451fb71" />
+
 
 
 
