@@ -122,20 +122,34 @@ while True:
   printMessage()
 
   if len(playerCard) == 2 and sum(playerPoint) == 21:
-      print("Black Jack！")
-      playerBJ = True
+    print("Black Jack！")
+    playerBJ = True
   
   if playerPoint[0] == playerPoint[1] or playerPoint == [11, 1]:
-    ans = input("要分牌嗎(Y/N)?")
-    if ans == "y" or ans == "Y":
-      split(playerCard, playerPoint)
-      printMessage()
+    while True:
+      ans = input("要分牌嗎(Y/N)?")
+      if ans == "y" or ans == "Y":
+        split(playerCard, playerPoint)
+        printMessage()
+      elif ans != "n" and ans != "N":
+        continue
+      break
 
-  message = "請選擇步驟：加注輸入1/投降輸入2/跳過輸入3"
-  if len(playerCardSpilt) > 0:
-    message = "請選擇步驟：加注輸入1(兩注為相同籌碼)/跳過輸入3"
-  print(message)
-  ans = input()
+  ans = ""
+  if len(playerCardSpilt) == 0:
+    while True:
+      print("請選擇步驟：加注輸入1/投降輸入2/跳過輸入3")
+      ans = input()
+      if ans != "1" and ans != "2" and ans != "3":
+        continue
+      break
+  else:
+    while True:
+      print("請選擇步驟：加注輸入1(兩注為相同籌碼)/跳過輸入3")
+      ans = input()
+      if ans != "1" and ans != "3":
+        continue
+      break
 
   if ans == "1":
     addWager = input("請加注：")
