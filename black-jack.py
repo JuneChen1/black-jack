@@ -171,7 +171,7 @@ while True:
       ans = input("玩家要加牌嗎(Y/N)？")
       if ans == "N" or ans == "n":
         break
-      if ans != "Y" and ans != "y":
+      elif ans != "Y" and ans != "y":
         continue
       
       hit(playerCard, playerPoint)
@@ -186,7 +186,7 @@ while True:
       ans = input("第一注要加牌嗎(Y/N)？")
       if ans == "N" or ans == "n":
         break
-      if ans != "Y" and ans != "y":
+      elif ans != "Y" and ans != "y":
         continue
       
       hit(playerCard, playerPoint)
@@ -202,7 +202,7 @@ while True:
       ans = input("第二注要加牌嗎(Y/N)？")
       if ans == "N" or ans == "n":
         break
-      if ans != "Y" and ans != "y":
+      elif ans != "Y" and ans != "y":
         continue
       
       hit(playerCardSpilt, playerPointSpilt)
@@ -275,6 +275,8 @@ while True:
     
   print("玩家勝利{}次，莊家勝利{}次".format(playerWin, bankerWin))
   print("持有籌碼：", chips, sep="")
+  if chips < 0:
+    print("> 提醒：負債中(但不用還)")
   
   end = input("再來一場(Y/N)?")
   if end == "n" or end == "N":
