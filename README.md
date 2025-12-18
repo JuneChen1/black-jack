@@ -32,3 +32,5 @@
 
 ### 撲克牌牌面說明
 [快速生成撲克牌堆](https://medium.com/@juneee/python-快速生成撲克牌堆-a87429a0abfd)
+### 分牌
+[21點分牌功能](https://medium.com/@juneee/python-21點分牌功能-e4d55ff16a5c)
